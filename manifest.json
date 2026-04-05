@@ -1,0 +1,58 @@
+{
+  "manifest_version": 3,
+  "name": "AnyChat Voice Assistant",
+  "version": "1.0.0",
+  "description": "Transforms any AI chat web app into a real-time, interactive voice assistant experience.",
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "*://chatgpt.com/*",
+    "*://gemini.google.com/*",
+    "*://claude.ai/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://chatgpt.com/*",
+        "*://gemini.google.com/*",
+        "*://claude.ai/*"
+      ],
+      "js": [
+        "content/adapters.js",
+        "content/stt.js",
+        "content/tts.js",
+        "content/ui.js",
+        "content/index.js"
+      ],
+      "css": [
+        "content/ui.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "AnyChat Settings"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["content/ui.css"],
+      "matches": [
+        "*://chatgpt.com/*",
+        "*://gemini.google.com/*",
+        "*://claude.ai/*"
+      ]
+    }
+  ],
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  }
+}
